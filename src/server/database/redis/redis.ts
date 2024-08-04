@@ -19,7 +19,7 @@ export const redis = (() => {
       },
     };
   }
-  const instance = new Redis(env.REDIS_URI, options);
+  const instance = new Redis(env.REDIS_URL, options);
 
   // instance.on('connect', () => {
   //   logger.info('Redis database connected');

@@ -9,7 +9,7 @@ export const env = createEnv({
    */
   server: {
     MONGODB_URI: z.string(),
-    REDIS_URI: z.string(),
+    REDIS_URL: z.string(),
     LOGTAIL_SOURCE_TOKEN: z.string().optional(),
 
     NEXTAUTH_SECRET: process.env.NODE_ENV === 'production' ? z.string() : z.string().optional(),
@@ -36,7 +36,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     MONGODB_URI: process.env.MONGODB_URI,
-    REDIS_URI: process.env.REDIS_URI,
+    REDIS_URL: process.env.REDIS_URL,
 
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
