@@ -1,6 +1,8 @@
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
+import { VERCEL_ENV } from './next-helpers/next.constants';
+
 // Don't add NODE_ENV into T3 Env, it changes the tree-shaking behavior
 export const env = createEnv({
   /**
@@ -54,7 +56,7 @@ export const env = createEnv({
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
    * useful for Docker builds.
    */
-  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
+  skipValidation: !!VERCEL_ENV || !!process.env.SKIP_ENV_VALIDATION,
   /**
    * Makes it so that empty strings are treated as undefined. `SOME_VAR: z.string()` and
    * `SOME_VAR=''` will throw an error.
