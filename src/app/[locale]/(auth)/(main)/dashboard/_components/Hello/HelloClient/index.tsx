@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession } from '@/stores/session-store';
+import { useSession } from 'next-auth/react';
 
 export const HelloClient = () => {
   const session = useSession();

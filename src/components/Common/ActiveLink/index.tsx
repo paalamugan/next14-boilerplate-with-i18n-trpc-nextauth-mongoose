@@ -1,9 +1,9 @@
 'use client';
 
+import { cn } from '@paalan/react-shared/lib';
 import type { ComponentProps, FC } from 'react';
 
 import Link from '@/components/Link';
-import { cn } from '@/lib/cn';
 import { usePathname } from '@/lib/navigation';
 
 type ActiveLocalizedLinkProps = ComponentProps<typeof Link> & {

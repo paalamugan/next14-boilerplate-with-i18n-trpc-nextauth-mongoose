@@ -2,9 +2,7 @@ import { z } from 'zod';
 
 import { signInValidationSchema, signUpValidationSchema } from '@/validations/auth.validation';
 
-export const signInInputSchema = z.object({
-  credentials: signInValidationSchema,
-});
+export const signInInputSchema = signInValidationSchema;
 export type SignInInputSchemaType = z.infer<typeof signInInputSchema>;
 
 export const signUpInputSchema = signUpValidationSchema;

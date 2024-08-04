@@ -1,11 +1,9 @@
-'use client';
-
 import { ArrowPathIcon } from '@heroicons/react/24/solid';
 import { useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 
 import { usePathname, useRouter } from '@/lib/navigation';
-import { useSession } from '@/stores/session-store';
 
 type Props = {
   children: React.ReactNode;
@@ -16,19 +14,19 @@ export const AuthGuard: React.FC<Props> = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const redirectBackUrl = searchParams.get('redirectBackUrl') || '/dashboard';
+  const redirectTo = searchParams.get('redirectTo') || '/dashboard';
 
   useEffect(() => {
     if (pathname === '/signin' && session.status === 'authenticated') {
-      router.push(redirectBackUrl);
+      router.push(redirectTo);
     }
 
     if (session.status === 'unauthenticated' && pathname !== '/signin') {
       const urlSearchParams = new URLSearchParams();
-      urlSearchParams.set('redirectBackUrl', pathname);
+      urlSearchParams.set('redirectTo', pathname);
       router.push(`/signin?${urlSearchParams.toString()}`);
     }
-  }, [session.status, pathname, router, searchParams, redirectBackUrl]);
+  }, [session.status, pathname, router, searchParams, redirectTo]);
 
   if (
     session.status === 'loading' ||

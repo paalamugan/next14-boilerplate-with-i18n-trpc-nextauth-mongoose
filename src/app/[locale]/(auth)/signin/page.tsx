@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@paalan/react-ui';
 import { getTranslations } from 'next-intl/server';
 
 import Link from '@/components/Link';
@@ -21,32 +21,21 @@ export async function generateMetadata(props: { params: { locale: string } }) {
 const SignInPage = () => {
   return (
     <CenteredLayout>
-      <div className="shadow-xl">
-        <div className="my-6 flex min-h-full min-w-[30rem] flex-col justify-center px-6 py-12 lg:px-8">
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <Image
-              className="mx-auto h-10 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt="Your Company"
-              width={12}
-              height={12}
-            />
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Sign in to your account
-            </h2>
-          </div>
-
-          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <SignInForm />
-          </div>
-
-          <p className="mt-6 text-center">
-            <Link href="/signup" className="text-blue-700 hover:underline">
-              Create an account
+      <Card className="mx-auto mt-4 max-w-lg border-0 shadow-none sm:mt-12 sm:border sm:shadow-sm md:mt-20 lg:mt-24 xl:mt-28">
+        <CardHeader>
+          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardDescription>Enter your email below to login to your account</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <SignInForm />
+          <div className="mt-4 text-center text-sm">
+            Don&apos;t have an account?{' '}
+            <Link href="/signup" className="underline">
+              Sign up
             </Link>
-          </p>
-        </div>
-      </div>
+          </div>
+        </CardContent>
+      </Card>
     </CenteredLayout>
   );
 };

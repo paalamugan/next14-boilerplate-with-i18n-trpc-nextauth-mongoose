@@ -1,9 +1,12 @@
+/* eslint-disable no-console */
+
 'use client';
 
-import { ArrowRightIcon } from '@heroicons/react/24/solid';
-import { Button } from '@paalan/react-ui';
+import { ArrowBackIcon } from '@paalan/react-icons';
+import { cn } from '@paalan/react-shared/lib';
+import { Box, Button, Flex, Strong, Text } from '@paalan/react-ui';
 import { captureException } from '@sentry/nextjs';
-import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import { type FC, useEffect } from 'react';
 
 import Link from '@/components/Link';
@@ -11,45 +14,61 @@ import { CenteredLayout } from '@/layouts/CenteredLayout';
 
 type ErrorPageProps = {
   error: Error & { digest?: string };
-  reset: () => void;
+  reset?: () => void;
+  statusCode?: number;
+  statusText?: string;
+  showErrorMessage?: boolean;
 };
-const ErrorPage: FC<ErrorPageProps> = ({ error, reset }) => {
-  const t = useTranslations();
+const ErrorPage: FC<ErrorPageProps> = ({
+  error,
+  reset,
+  statusCode = 500,
+  statusText = 'Internal Server Error',
+  showErrorMessage = false,
+}) => {
+  const router = useRouter();
 
   useEffect(() => {
     captureException(error);
+    console.error(error.cause);
   }, [error]);
 
+  const onRefresh = () => {
+    if (reset) {
+      reset();
+    } else {
+      router.refresh();
+    }
+  };
+
+  const textColor = statusCode >= 400 && showErrorMessage ? 'text-danger' : '';
   return (
     <>
       <div />
       <CenteredLayout>
         <main className="flex flex-col gap-3 text-center">
-          <h1 className="text-4xl font-semibold"> 500 </h1>
-          <h1 className="special mt-3">{t('layouts.error.internalServerError.title')}</h1>
-          <p className="mt-3 max-w-sm text-center text-lg">
-            {t('layouts.error.internalServerError.description')}
-          </p>
-          <div className="flex gap-2">
-            <Button as={Link} href="/">
-              {t('layouts.error.backToHome')}
-              <ArrowRightIcon />
+          <h1 className={cn('text-4xl font-semibold', textColor)}> {statusCode} </h1>
+          <h1 className={cn('mt-3', textColor)}>{statusText}</h1>
+          <Box className="mt-3 max-w-sm text-center text-lg">
+            {showErrorMessage ? (
+              <Text color="danger" mb="3">
+                <Strong>Error Message:</Strong> {error.message}
+              </Text>
+            ) : (
+              <Text>
+                This page is currently unavailable. Please see the console for more information.
+              </Text>
+            )}
+          </Box>
+          <Flex justifyContent="center" gap="3">
+            <Button as={Link} href="/dashboard">
+              <ArrowBackIcon className="size-5" />
+              Back to Dashboard
             </Button>
-            <Button
-              as={Link}
-              href="/"
-              variant="outline"
-              onClick={e => {
-                e.preventDefault();
-                // Attempt to recover by trying to re-render the segment
-
-                reset();
-              }}
-            >
-              {t('layouts.error.refresh')}
-              <ArrowRightIcon />
+            <Button variant="outline" onClick={onRefresh}>
+              Refresh
             </Button>
-          </div>
+          </Flex>
         </main>
       </CenteredLayout>
     </>

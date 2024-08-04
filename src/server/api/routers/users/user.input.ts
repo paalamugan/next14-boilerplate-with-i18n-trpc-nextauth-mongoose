@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
-import { signUpValidationSchema } from '@/validations/auth.validation';
+import { baseSignUpValidationSchema } from '@/validations/auth.validation';
 
-export const createUserInputSchema = signUpValidationSchema;
+export const createUserInputSchema = baseSignUpValidationSchema;
 export type CreateUserInputSchema = z.infer<typeof createUserInputSchema>;
 
 export const updateUserInputSchema = z.object({

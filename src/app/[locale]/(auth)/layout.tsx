@@ -1,18 +1,12 @@
 import type { FC, PropsWithChildren } from 'react';
 
-import { AuthGuard } from '@/components/Auth/AuthGuard';
-import { UserStoreInitializer } from '@/components/Auth/UserStoreInitializer';
-import { getMe } from '@/server/api/helpers/session';
+import { getSession } from '@/lib/auth/auth';
+import { SessionProvider } from '@/providers/SessionProvider';
 
 const AuthLayout: FC<PropsWithChildren> = async ({ children }) => {
-  const user = await getMe();
+  const session = await getSession();
 
-  return (
-    <>
-      <UserStoreInitializer user={user} />
-      <AuthGuard>{children}</AuthGuard>
-    </>
-  );
+  return <SessionProvider session={session}>{children}</SessionProvider>;
 };
 
 export default AuthLayout;

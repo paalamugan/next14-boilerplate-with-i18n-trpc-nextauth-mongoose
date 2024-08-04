@@ -6,10 +6,10 @@ import * as Label from '@radix-ui/react-label';
 import type { ComponentProps, FC, HTMLAttributeAnchorTarget, ReactNode } from 'react';
 import { useState } from 'react';
 
-import { SignOutButton } from '@/components/Auth/SignOutButton';
 import { LanguageSwitcher } from '@/components/Common/LanguageSwitcher';
 import ThemeToggle from '@/components/Common/ThemeToggle';
 import Link from '@/components/Link';
+import { SignOutButton } from '@/components/SignOutButton';
 import type { FormattedMessage } from '@/types';
 
 import style from './index.module.css';
@@ -38,7 +38,7 @@ const NavBar: FC<NavbarProps> = ({ navItems, languages, onThemeTogglerClick }) =
     <nav className={`${style.container}`}>
       <div className={style.demoIconAndMobileItemsToggler}>
         <Link className={style.demoIconWrapper} href="/" aria-label="Home">
-          Activpass
+          My Logo
         </Link>
 
         <Label.Root

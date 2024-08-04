@@ -5,6 +5,7 @@ import 'server-only';
 import { headers } from 'next/headers';
 import { NextRequest } from 'next/server';
 
+import { getSession } from '@/lib/auth';
 import { appRouter } from '@/server/api/root';
 import { createCallerFactory, createTRPCContext, type TRPCContext } from '@/server/api/trpc';
 // import { Logger } from '@/server/api/common/logger';
@@ -28,9 +29,12 @@ const createContext = async (): Promise<TRPCContext> => {
     credentials: 'include',
   });
 
+  const session = await getSession();
+
   return createTRPCContext({
     headers: heads,
     req: nextRequest,
+    session,
   });
 };
 

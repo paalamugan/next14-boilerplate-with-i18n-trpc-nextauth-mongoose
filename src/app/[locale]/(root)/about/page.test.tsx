@@ -10,7 +10,7 @@ describe('About page', () => {
     it('should have a text starting with `Welcome to our About page`', async () => {
       render(
         <NextIntlClientProvider locale="en" messages={messages}>
-          <About />
+          <About params={{ locale: 'en' }} />
         </NextIntlClientProvider>
       );
 

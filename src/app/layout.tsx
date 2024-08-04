@@ -13,7 +13,7 @@ import { allLocaleCodes, availableLocalesMap, defaultLocale } from '@/next-helpe
 import siteConfig from '@/next-helpers/site.config';
 import { Providers } from '@/providers/providers';
 
-const fontClasses = cn(INTER.variable, OPEN_SANS.variable);
+const fontClasses = cn(OPEN_SANS.variable, INTER.variable);
 
 export const metadata: Metadata = {
   title: siteConfig.title,

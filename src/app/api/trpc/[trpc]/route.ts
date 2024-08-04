@@ -2,6 +2,7 @@
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import type { NextRequest } from 'next/server';
 
+import { getSession } from '@/lib/auth';
 import { appRouter } from '@/server/api/root';
 import { createTRPCContext } from '@/server/api/trpc';
 import { logColors, Logger } from '@/server/logger';
@@ -13,7 +14,8 @@ const logger = new Logger('ApiTRPCRoute');
  * handling a HTTP request (e.g. when you make requests from Client Components).
  */
 const createContext = async (opts: { req: NextRequest; headers: Headers }) => {
-  return createTRPCContext({ ...opts });
+  const session = await getSession();
+  return createTRPCContext({ ...opts, session });
 };
 
 const handler = async (req: NextRequest) => {

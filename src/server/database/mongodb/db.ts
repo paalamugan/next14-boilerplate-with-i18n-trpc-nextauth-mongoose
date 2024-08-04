@@ -4,8 +4,6 @@ import { env } from '@/env';
 
 import { MongoDBConnection } from './db.connection';
 
-const dbConnection = new MongoDBConnection(env.MONGODB_URI);
-
 let cached = global.mongoose;
 
 if (!cached) {
@@ -18,6 +16,8 @@ export const mongodbConnect = async () => {
     return cached.conn;
   }
   if (!cached.promise) {
+    const dbConnection = new MongoDBConnection(env.MONGODB_URI);
+
     cached.promise = new Promise<typeof mongoose>((resolve, reject) => {
       dbConnection.connect(resolve, reject);
     });

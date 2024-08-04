@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { type FC, use } from 'react';
 
-export const ServerFetch: FC<{ dataPromise: any }> = ({ dataPromise }) => {
+export const ServerFetch: FC<{ dataPromise: Promise<unknown> }> = ({ dataPromise }) => {
   const data = use(dataPromise);
   const t = useTranslations('pages.profile.content');
   return (

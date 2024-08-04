@@ -4,7 +4,6 @@ import mongoose, {
   type HydratedDocument,
   type InferSchemaType,
   type Model,
-  Types,
 } from 'mongoose';
 
 import { userProviderSchema } from '@/validations/auth.validation';
@@ -12,7 +11,7 @@ import { userProviderSchema } from '@/validations/auth.validation';
 import { AUTH_ROLES } from '../../auth/constants';
 
 export interface IUserSchema extends InferSchemaType<typeof UserSchema> {
-  _id: Types.ObjectId;
+  _id: mongoose.Schema.Types.ObjectId;
 
   // Virtuals are not included in the schema type
   id: string;
@@ -44,11 +43,11 @@ export interface IUserDocument extends HydratedDocument<IUserSchema, IUserSchema
 // Here, You have to explicity mention the type of statics.
 export interface IUserModel extends Model<IUserSchema, {}, IUserSchemaMethods> {
   authenticate(email: string, password: string): Promise<IUserDocument>;
-  get(id: string | Types.ObjectId): Promise<IUserDocument>;
+  get(id: string | mongoose.Schema.Types.ObjectId): Promise<IUserDocument>;
   findByEmail(email: string): Promise<IUserDocument>;
   list(filter: FilterQuery<IUserSchema>): Promise<IUserDocument[]>;
   changePassword(
-    id: string | Types.ObjectId,
+    id: string | mongoose.Schema.Types.ObjectId,
     oldPassword: string,
     newPassword: string
   ): Promise<IUserDocument>;
@@ -63,8 +62,8 @@ const schemaOptions = {
 
 const UserSchema = new mongoose.Schema(
   {
-    organization: { type: Types.ObjectId, ref: 'Organization' },
-    ownedBy: { type: Types.ObjectId, ref: 'User' },
+    // organization: { type: Types.ObjectId, ref: 'Organization' },
+    ownedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
     firstName: {
       type: String,
@@ -223,6 +222,6 @@ UserSchema.static('changePassword', async function changePassword(id, oldPasswor
   return updatedUser;
 });
 
-export const UserModel =
-  (mongoose.models.User as IUserModel) ||
+export const UserModel: IUserModel =
+  (mongoose.models?.User as unknown as IUserModel) ||
   mongoose.model<IUserSchema, IUserModel>('User', UserSchema);

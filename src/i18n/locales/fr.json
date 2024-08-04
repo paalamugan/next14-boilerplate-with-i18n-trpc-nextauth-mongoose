@@ -117,7 +117,8 @@
   },
   "Dashboard": {
     "meta_title": "Tableau de bord",
-    "hello_message": "Bonjour '<strong'>{username}'</strong'>!"
+    "hello_message": "Bonjour '<strong'>{username}'</strong'>!",
+    "user_data": "Données utilisateur"
   },
   "UserProfile": {
     "meta_title": "Profil de l'utilisateur"

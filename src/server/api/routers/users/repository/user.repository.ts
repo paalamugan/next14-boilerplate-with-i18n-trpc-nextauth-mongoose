@@ -11,7 +11,6 @@ import {
   type GetUserByIdOptions,
   type ResetPasswordParams,
   type UpdateUserParams,
-  type VerifyCredentialsParams,
 } from '@/server/api/routers/users/repository/user.repository.types';
 import { redis } from '@/server/database/redis';
 import { Logger } from '@/server/logger/logger';
@@ -92,22 +91,14 @@ class UserRepository {
     if (user === null) {
       throw new TRPCError({
         code: 'NOT_FOUND',
-        message: 'User not found',
+        message: `User not found with id: ${id}`,
       });
     }
     return user;
   };
 
-  verifyCredentials = async (credentials: VerifyCredentialsParams) => {
-    try {
-      const user = await UserModel.authenticate(credentials.email, credentials.password);
-      user.set('lastLogin', new Date());
-      const savedUser = await user.save();
-      return savedUser;
-    } catch (error) {
-      this.logger.error('Failed to verify credentials', error);
-      throw error;
-    }
+  getByEmail = async (email: IUserSchema['email']) => {
+    return UserModel.findByEmail(email);
   };
 
   isUserExists = async (email: string) => {
@@ -134,6 +125,18 @@ class UserRepository {
       }
     } catch (error) {
       this.logger.error('Failed to check if user exists', error);
+      throw error;
+    }
+  };
+
+  authenticate = async (email: string, password: string) => {
+    try {
+      const user = await UserModel.authenticate(email, password);
+      user.set('lastLogin', new Date());
+      const savedUser = await user.save();
+      return savedUser;
+    } catch (error) {
+      this.logger.error('Failed to authenticate user', error);
       throw error;
     }
   };

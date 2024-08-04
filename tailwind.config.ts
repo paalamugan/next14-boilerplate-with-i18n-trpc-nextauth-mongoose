@@ -12,7 +12,7 @@ const config = {
     './node_modules/@paalan/react-icons/**/*.{js,ts,jsx,tsx}',
     './node_modules/@paalan/react-shared/**/*.{js,ts,jsx,tsx}',
   ],
-
+  darkMode: ['class'],
   // Project-specific customizations
   theme: {
     extend: {

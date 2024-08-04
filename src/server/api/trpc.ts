@@ -8,6 +8,7 @@
  */
 import { initTRPC } from '@trpc/server';
 import type { NextRequest } from 'next/server';
+import type { Session } from 'next-auth';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
 import { fromZodError, ValidationError } from 'zod-validation-error';
@@ -29,6 +30,7 @@ import { getTRPCError } from './utils/trpc-error';
 interface CreateContextOptions {
   headers: Headers;
   req: NextRequest;
+  session: Session | null;
 }
 
 /**
@@ -123,22 +125,14 @@ type ProtectedProcedureOpts = Omit<TRPCContext, 'session'> & {
   session: ServerSession;
 };
 const enforceUserIsAuthenticated = t.middleware(async opts => {
-  const verifiedSessionToken = authService.verifySessionTokenFromCookies(opts.ctx.req.headers);
+  const { session } = opts.ctx;
 
-  if (!verifiedSessionToken) {
+  if (!session) {
     throw getTRPCError('Session token is missing', 'UNAUTHORIZED');
   }
 
   try {
-    const result = await authService.validateSessionToken({
-      encodedSessionToken: verifiedSessionToken.encodedSessionToken,
-      userId: verifiedSessionToken.userId,
-      headers: opts.ctx.headers,
-    });
-
-    if (!result.success) {
-      throw getTRPCError('Invalid session token', 'UNAUTHORIZED');
-    }
+    const result = await authService.validateNextAuthSessionToken(session);
 
     if (!result.userInfo) {
       throw getTRPCError('Failed to retrieve user info');

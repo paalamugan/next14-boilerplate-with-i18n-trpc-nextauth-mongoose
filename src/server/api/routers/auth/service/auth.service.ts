@@ -1,5 +1,6 @@
 import { TRPCError } from '@trpc/server';
 import argon2 from 'argon2';
+import type { Session } from 'next-auth';
 
 import { TimeInSeconds } from '@/server/api/enums/time-in-seconds.enum';
 import { type IUserData, UserModel } from '@/server/api/routers/users/model/user.model';
@@ -151,12 +152,9 @@ class AuthService {
   };
 
   signIn = async (args: SignInArgs): Promise<ServerSession> => {
-    const {
-      input: { credentials },
-      headers,
-    } = args;
+    const { input, headers } = args;
     try {
-      const verifiedUser = await userRepository.verifyCredentials(credentials);
+      const verifiedUser = await userRepository.authenticate(input.email, input.password);
       const user = verifiedUser.toClientObject();
 
       const expiresIn = TimeInSeconds.TwoWeeks;
@@ -246,6 +244,22 @@ class AuthService {
         includeSensitiveInfo: true,
       }),
       sessionToken: finalSessionToken,
+    };
+  };
+
+  validateNextAuthSessionToken = async (session: Session) => {
+    if (!session.user) {
+      throw new Error('Session User not found');
+    }
+
+    const userId = session.user.id as string;
+
+    return {
+      userInfo: await userRepository.getUserById(userId, {
+        includeSensitiveInfo: true,
+      }),
+      // TODO: Implement session token renewal
+      sessionToken: '',
     };
   };
 

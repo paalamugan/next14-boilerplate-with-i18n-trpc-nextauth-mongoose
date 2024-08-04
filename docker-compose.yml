@@ -10,7 +10,7 @@ services:
     environment:
       NEXT_PUBLIC_APP_URL: "http://localhost:3000"
       MONGODB_URI: "mongodb://app-mongodb:27017/app"
-      REDIS_URL: "redis://app-redis:6379"
+      REDIS_URI: "redis://app-redis:6379"
     depends_on:
       - mongodb
       - redis

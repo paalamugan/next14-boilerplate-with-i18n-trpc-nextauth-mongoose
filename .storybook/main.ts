@@ -1,6 +1,5 @@
+import { cn } from '@paalan/react-shared/lib';
 import type { StorybookConfig } from '@storybook/nextjs';
-
-import { cn } from '../src/lib/cn';
 
 const rootClasses = cn(
   // note: this is hard-coded sadly as next/font can only be loaded within next.js context

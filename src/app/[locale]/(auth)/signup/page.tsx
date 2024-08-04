@@ -13,7 +13,7 @@ const SignUpPage = () => {
       </CardHeader>
       <CardContent>
         <SignUpForm />
-        <Text fontSize="base" className="text-center">
+        <Text fontSize="base" className="mt-2 text-center">
           Already have an account?{' '}
           <Link href="/signin" className="text-primary underline">
             Sign in

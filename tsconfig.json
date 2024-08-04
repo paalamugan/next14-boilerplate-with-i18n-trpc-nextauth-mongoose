@@ -45,7 +45,7 @@
   "mdx": {
     "checkMdx": true
   },
-  "exclude": ["./out/**/*", "./node_modules/**/*", ".next"],
+  "exclude": ["./out/**/*", "./node_modules/**/*", ".next", "undefined"],
   "include": [
     "next-env.d.ts",
     "typings",

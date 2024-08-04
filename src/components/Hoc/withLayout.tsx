@@ -1,6 +1,6 @@
 import type { FC, PropsWithChildren } from 'react';
 
-import { AuthLayout } from '@/layouts/AuthLayout';
+import { AuthLayout } from '@/layouts/AuthLayout/AuthLayout';
 import { RootLayout } from '@/layouts/RootLayout';
 import type { Layouts } from '@/types';
 

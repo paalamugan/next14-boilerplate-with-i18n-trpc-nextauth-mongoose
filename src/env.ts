@@ -9,12 +9,17 @@ export const env = createEnv({
    */
   server: {
     MONGODB_URI: z.string(),
-    REDIS_URL: z.string(),
-    ANALYZE: z
-      .enum(['true', 'false'])
-      .optional()
-      .transform(value => value === 'true'),
+    REDIS_URI: z.string(),
     LOGTAIL_SOURCE_TOKEN: z.string().optional(),
+
+    NEXTAUTH_SECRET: process.env.NODE_ENV === 'production' ? z.string() : z.string().optional(),
+    NEXTAUTH_URL: z.preprocess(
+      // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
+      // Since NextAuth.js automatically uses the VERCEL_URL if present.
+      str => process.env.VERCEL_URL ?? str,
+      // VERCEL_URL doesn't include `https` so it cant be validated as a URL
+      process.env.VERCEL ? z.string() : z.string().url()
+    ),
 
     ADMIN_USERNAME: z.string().optional(),
     ADMIN_PASSWORD: z.string().optional(),
@@ -23,6 +28,7 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string(),
+    NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
   },
   /**
    * You can't destruct `process.env` as a regular object in the Next.js edge runtime (e.g.
@@ -30,16 +36,19 @@ export const env = createEnv({
    */
   runtimeEnv: {
     MONGODB_URI: process.env.MONGODB_URI,
-    REDIS_URL: process.env.REDIS_URL,
-    ANALYZE: process.env.ANALYZE,
+    REDIS_URI: process.env.REDIS_URI,
 
-    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-    LOGTAIL_SOURCE_TOKEN: process.env.LOGTAIL_SOURCE_TOKEN,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
 
     ADMIN_USERNAME: process.env.ADMIN_USERNAME,
     ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
 
+    LOGTAIL_SOURCE_TOKEN: process.env.LOGTAIL_SOURCE_TOKEN,
     SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN,
+
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

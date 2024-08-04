@@ -46,6 +46,15 @@ const fields: FormItemField[] = [
     formItemClassName: 'col-span-2',
     required: true,
   },
+  {
+    name: 'confirmPassword',
+    label: 'Confirm Password',
+    type: 'input',
+    inputType: 'password',
+    placeholder: 'Enter your password again',
+    formItemClassName: 'col-span-2',
+    required: true,
+  },
 ];
 
 export const SignUpForm: FC = () => {
@@ -61,6 +70,7 @@ export const SignUpForm: FC = () => {
       lastName: '',
       email: '',
       password: '',
+      confirmPassword: '',
       provider: UserProviderEnum.email,
     },
   });

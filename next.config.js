@@ -125,6 +125,8 @@ const nextConfig = {
     // ],
     // Removes the warning regarding the WebPack Build Worker
     webpackBuildWorker: false,
+    // esmExternals: 'loose',
+    // serverComponentsExternalPackages: ['mongoose', 'ioredis'],
   },
 };
 
