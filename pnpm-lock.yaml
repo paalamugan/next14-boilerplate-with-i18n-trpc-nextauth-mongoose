@@ -10,6 +10,9 @@ overrides:
 importers:
   .:
     dependencies:
+      '@auth/upstash-redis-adapter':
+        specifier: ^2.4.2
+        version: 2.4.2(@upstash/redis@1.34.0)
       '@heroicons/react':
         specifier: ^2.1.4
         version: 2.1.4(react@18.3.1)
@@ -76,6 +79,9 @@ importers:
       '@trpc/server':
         specifier: 11.0.0-rc.370
         version: 11.0.0-rc.370
+      '@upstash/redis':
+        specifier: ^1.34.0
+        version: 1.34.0
       argon2:
         specifier: ^0.40.3
         version: 0.40.3
@@ -469,6 +475,14 @@ packages:
         optional: true
       nodemailer:
         optional: true
+
+  '@auth/upstash-redis-adapter@2.4.2':
+    resolution:
+      {
+        integrity: sha512-rRVw0Sfp3YlFjSyUHFGS5sT1wuglawck4Cnv2RvRcFqhK+Tbx1WJgOSYJaI4bMsFPdNSh9TB1cslqsNTZDJY+A==,
+      }
+    peerDependencies:
+      '@upstash/redis': ^1.0.1
 
   '@aw-web-design/x-default-browser@1.4.126':
     resolution:
@@ -6418,6 +6432,12 @@ packages:
         integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==,
       }
 
+  '@upstash/redis@1.34.0':
+    resolution:
+      {
+        integrity: sha512-TrXNoJLkysIl8SBc4u9bNnyoFYoILpCcFJcLyWCccb/QSUmaVKdvY0m5diZqc3btExsapcMbaw/s/wh9Sf1pJw==,
+      }
+
   '@vitest/expect@1.6.0':
     resolution:
       {
@@ -8378,6 +8398,12 @@ packages:
     resolution:
       {
         integrity: sha512-fz4spIh+znjO2VjL+IdhEpRJ3YN6sMzITSBijk6FK2UvTqruSQW+/cCZTSNsMiZNvUeq0CqurF+dAbyiGOY6Wg==,
+      }
+
+  crypto-js@4.2.0:
+    resolution:
+      {
+        integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==,
       }
 
   crypto-random-string@4.0.0:
@@ -18978,6 +19004,15 @@ snapshots:
       preact: 10.11.3
       preact-render-to-string: 5.2.3(preact@10.11.3)
 
+  '@auth/upstash-redis-adapter@2.4.2(@upstash/redis@1.34.0)':
+    dependencies:
+      '@auth/core': 0.34.2
+      '@upstash/redis': 1.34.0
+    transitivePeerDependencies:
+      - '@simplewebauthn/browser'
+      - '@simplewebauthn/server'
+      - nodemailer
+
   '@aw-web-design/x-default-browser@1.4.126':
     dependencies:
       default-browser-id: 3.0.0
@@ -24002,6 +24037,10 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
+  '@upstash/redis@1.34.0':
+    dependencies:
+      crypto-js: 4.2.0
+
   '@vitest/expect@1.6.0':
     dependencies:
       '@vitest/spy': 1.6.0
@@ -25293,6 +25332,8 @@ snapshots:
       public-encrypt: 4.0.3
       randombytes: 2.1.0
       randomfill: 1.0.4
+
+  crypto-js@4.2.0: {}
 
   crypto-random-string@4.0.0:
     dependencies:

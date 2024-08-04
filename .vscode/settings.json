@@ -53,6 +53,7 @@
     "superjson",
     "trpc",
     "unoptimized",
+    "upstash",
     "virtuals",
     "zadd",
     "zcount",

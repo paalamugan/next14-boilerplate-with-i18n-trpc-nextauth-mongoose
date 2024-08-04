@@ -1,6 +1,13 @@
+import { UpstashRedisAdapter } from '@auth/upstash-redis-adapter';
 import type { NextAuthConfig } from 'next-auth';
 
+import { env } from '@/env';
+import { upstashRedis } from '@/server/database/upstash-redis';
+
 export const authBaseConfig = {
+  adapter: UpstashRedisAdapter(upstashRedis, {
+    baseKeyPrefix: env.UPSTASH_REDIS_REST_BASE_KEY_PREFIX,
+  }),
   session: {
     strategy: 'jwt',
   },
