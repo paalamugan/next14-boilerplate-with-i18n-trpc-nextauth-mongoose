@@ -149,7 +149,7 @@ class UserRepository {
         ...data,
         username: data.email.split('@')[0] || data.firstName.toLowerCase(),
         verified: true,
-        role: AUTH_ROLES.ADMIN,
+        role: data.role || AUTH_ROLES.USER,
       };
 
       const user = new UserModel(dataBody);

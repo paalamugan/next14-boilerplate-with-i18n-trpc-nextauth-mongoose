@@ -11,6 +11,7 @@ export const ADMIN_CREDENTIALS = {
 } as const;
 
 export const AUTH_ROLES = {
+  OWNER: 'owner',
   ADMIN: 'admin',
   USER: 'user',
 } as const;

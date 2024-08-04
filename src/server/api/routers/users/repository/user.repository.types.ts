@@ -17,7 +17,7 @@ export type VerifyCredentialsParams = {
 };
 
 export type CreateUserParams = {
-  data: CreateUserInputSchema;
+  data: CreateUserInputSchema & { role?: IUserSchema['role'] };
 };
 
 export type UpdateUserParams = {
