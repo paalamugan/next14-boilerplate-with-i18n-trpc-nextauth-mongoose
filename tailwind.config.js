@@ -1,9 +1,9 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-extraneous-dependencies */
 import tailwindConfig from '@paalan/react-config/tailwind';
-import type { Config } from 'tailwindcss';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 
+/** @type {import('tailwindcss').Config} */
 const config = {
   presets: [tailwindConfig],
   content: [
@@ -24,6 +24,6 @@ const config = {
       },
     },
   },
-} satisfies Config;
+};
 
 export default config;

@@ -45,7 +45,7 @@
   "mdx": {
     "checkMdx": true
   },
-  "exclude": ["./out/**/*", "./node_modules/**/*", ".next", "undefined"],
+  "exclude": ["./out/**/*", "./node_modules/**/*", ".next"],
   "include": [
     "next-env.d.ts",
     "typings",
@@ -53,6 +53,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".storybook/**/*.ts",
-    ".storybook/**/*.tsx"
+    ".storybook/**/*.tsx",
+    "tailwind.config.js"
   ]
 }
