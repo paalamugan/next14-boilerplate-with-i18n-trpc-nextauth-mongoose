@@ -1,0 +1,41 @@
+services:
+  app: 
+    container_name: app
+    build: ./dev.dockerfile
+    restart: no
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      NEXT_PUBLIC_APP_URL: "http://localhost:3000"
+      MONGODB_URI: "mongodb://app-mongodb:27017/app"
+      REDIS_URL: "redis://app-redis:6379"
+    depends_on:
+      - mongodb
+      - redis
+
+  mongodb:
+    image: mongo
+    container_name: app-mongodb
+    # command: [--auth]
+    restart: no
+    volumes:
+      - ./data/mongodb:/data/db
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+
+  redis:
+    image: redis
+    container_name: app-redis
+    # command: redis-server --requirepass test
+    restart: no
+    volumes:
+      - ./data/redis:/data
+    ports:
+      - 6379:6379
+    expose:
+      - 6379
+
