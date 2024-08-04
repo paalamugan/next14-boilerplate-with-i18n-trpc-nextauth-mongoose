@@ -7,7 +7,7 @@ import type { AppRouteHandlerFnContext } from 'node_modules/next-auth/lib/types'
 
 import siteConfig from '@/next-helpers/site.config';
 
-import { authConfig } from './lib/auth/auth.config';
+import { authBaseConfig } from './lib/auth/auth.base.config';
 import { createRouteMatcher } from './utils/routeMatcher';
 
 const intlMiddleware = createMiddleware({
@@ -34,7 +34,7 @@ const authMiddleware = (request: NextAuthRequest) => {
 
 export default function middleware(request: NextRequest, response: AppRouteHandlerFnContext) {
   if (isProtectedRoute(request)) {
-    return NextAuth(authConfig).auth(authMiddleware)(request, response);
+    return NextAuth(authBaseConfig).auth(authMiddleware)(request, response);
   }
   return intlMiddleware(request);
 }

@@ -5,12 +5,12 @@ import { UserModel } from '@/server/api/routers/users/model/user.model';
 import { mongodbConnect } from '@/server/database/mongodb';
 import { signInValidationSchema } from '@/validations/auth.validation';
 
+import { authBaseConfig } from './auth.base.config';
+
 export const authConfig = {
-  session: {
-    strategy: 'jwt',
-  },
-  pages: { signIn: '/signin', error: '/auth-error' },
+  ...authBaseConfig,
   providers: [
+    ...authBaseConfig.providers,
     Credentials({
       credentials: { email: {}, password: {} },
       authorize: async credentials => {
@@ -26,28 +26,4 @@ export const authConfig = {
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      const newToken = { ...token };
-      if (user) {
-        newToken.id = user.id || '';
-        newToken.email = user.email || '';
-        newToken.name = user.name || '';
-      }
-
-      return newToken;
-    },
-    async session({ token, session }) {
-      const newSession = { ...session };
-      if (token) {
-        newSession.user = {
-          ...newSession.user,
-          id: token.id || '',
-          email: token.email || '',
-          name: token.name,
-        };
-      }
-      return newSession;
-    },
-  },
 } satisfies NextAuthConfig;
