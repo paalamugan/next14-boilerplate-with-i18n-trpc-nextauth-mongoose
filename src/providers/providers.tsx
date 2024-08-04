@@ -9,7 +9,9 @@ export const Providers: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <TRPCReactProvider>
       <LocaleProvider>
-        <ThemeProvider attribute="class">{children}</ThemeProvider>
+        <ThemeProvider attribute="class" enableSystem={false}>
+          {children}
+        </ThemeProvider>
       </LocaleProvider>
     </TRPCReactProvider>
   );
