@@ -12,6 +12,7 @@ export const authBaseConfig = {
     : undefined,
   session: {
     strategy: 'jwt',
+    maxAge: 60 * 60 * 24 * 7, // 7 day in seconds
   },
   pages: { signIn: '/signin', error: '/auth-error' },
   providers: [],
