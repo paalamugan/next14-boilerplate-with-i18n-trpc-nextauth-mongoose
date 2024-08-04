@@ -12,5 +12,5 @@ declare module globalThis {
   // eslint-disable-next-line vars-on-top, no-var
   var redis: InstanceType<(typeof import('ioredis'))['Redis']>;
   // eslint-disable-next-line vars-on-top, no-var
-  var upstashRedis: InstanceType<(typeof import('@upstash/redis'))['Redis']>;
+  var upstashRedis: InstanceType<(typeof import('@upstash/redis'))['Redis']> | null;
 }

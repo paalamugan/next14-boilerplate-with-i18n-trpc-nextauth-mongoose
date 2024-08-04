@@ -5,9 +5,11 @@ import { env } from '@/env';
 import { upstashRedis } from '@/server/database/upstash-redis';
 
 export const authBaseConfig = {
-  adapter: UpstashRedisAdapter(upstashRedis, {
-    baseKeyPrefix: env.UPSTASH_REDIS_REST_BASE_KEY_PREFIX,
-  }),
+  adapter: upstashRedis
+    ? UpstashRedisAdapter(upstashRedis, {
+        baseKeyPrefix: env.UPSTASH_REDIS_REST_BASE_KEY_PREFIX,
+      })
+    : undefined,
   session: {
     strategy: 'jwt',
   },

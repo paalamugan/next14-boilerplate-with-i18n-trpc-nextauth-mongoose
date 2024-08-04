@@ -80,6 +80,14 @@ cp .env.example .env.local
 
 and update the `.env.local` environment variables with your own values.
 
+- Create a account on Upstash and create a Redis database. You can create a free account on [Upstash](https://upstash.com/). After creating the account, you can create a new Redis database and get the Redis URL. You can find the Redis URL in the Upstash dashboard. You can also create a new environment variable `REDIS_URL` in `.env.local` file and paste the Redis URL.
+
+```shell
+REDIS_URL=redis://<REDIS-URL>
+UPSTASH_REDIS_REST_URL=<REDIS-REST-URL>
+UPSTASH_REDIS_REST_TOKEN=<REDIS-REST-TOKEN>
+```
+
 Before run the application make sure you have correct node version. You can check the node version by running the following command:
 
 ```shell
