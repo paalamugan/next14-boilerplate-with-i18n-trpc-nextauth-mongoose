@@ -14,7 +14,7 @@ export const env = createEnv({
     REDIS_URL: z.string(),
     UPSTASH_REDIS_REST_TOKEN: z.string(),
     UPSTASH_REDIS_REST_URL: z.string(),
-    UPSTASH_REDIS_REST_BASE_KEY_PREFIX: z.string(),
+    UPSTASH_REDIS_REST_BASE_KEY_PREFIX: z.string().optional(),
 
     LOGTAIL_SOURCE_TOKEN: z.string().optional(),
 
