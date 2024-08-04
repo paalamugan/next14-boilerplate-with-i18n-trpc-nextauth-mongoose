@@ -15,7 +15,7 @@ import {
   SheetTrigger,
 } from '@paalan/react-ui';
 import { CircleUser, Menu, Package2 } from 'lucide-react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import type { FC } from 'react';
 
 import ActiveLink from '@/components/Common/ActiveLink';
@@ -28,6 +28,7 @@ import { availableLocales } from '@/next-helpers/next.locales';
 
 export const Header: FC = () => {
   const { resolvedTheme, setTheme } = useNextTheme();
+  const t = useTranslations('auth.navbar.links');
 
   const pathname = usePathname();
   const router = useRouter();
@@ -54,14 +55,14 @@ export const Header: FC = () => {
           activeClassName="text-primary"
           className="text-foreground transition-colors hover:text-primary"
         >
-          Dashboard
+          {t('dashboard')}
         </ActiveLink>
         <ActiveLink
           href="/profile"
           activeClassName="text-primary"
           className="text-foreground transition-colors hover:text-primary"
         >
-          Profile
+          {t('profile')}
         </ActiveLink>
       </nav>
       <SheetRoot>
@@ -78,10 +79,10 @@ export const Header: FC = () => {
               <span className="sr-only">My Logo</span>
             </Link>
             <ActiveLink href="/dashboard" className="hover:text-foreground">
-              Dashboard
+              {t('dashboard')}
             </ActiveLink>
             <ActiveLink href="/profile" className="text-muted-foreground hover:text-foreground">
-              Profile
+              {t('profile')}
             </ActiveLink>
           </nav>
         </SheetContent>
