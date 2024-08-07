@@ -62,7 +62,7 @@ const schemaOptions = {
 
 const UserSchema = new mongoose.Schema(
   {
-    // organization: { type: Types.ObjectId, ref: 'Organization' },
+    organization: { type: Types.ObjectId, ref: 'Organization' },
     ownedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
     firstName: {

@@ -2,6 +2,7 @@ import { TRPCError } from '@trpc/server';
 import type { Session } from 'next-auth';
 
 import { TimeInSeconds } from '@/server/api/enums/time-in-seconds.enum';
+import { getHashToken } from '@/server/api/helpers/common';
 import { type IUserData, UserModel } from '@/server/api/routers/users/model/user.model';
 import { userRepository } from '@/server/api/routers/users/repository/user.repository';
 import { createSecureCookie, deleteCookie } from '@/server/api/utils/cookie-management';
@@ -9,7 +10,6 @@ import { getTRPCError } from '@/server/api/utils/trpc-error';
 import { redis } from '@/server/database/redis';
 import { Logger } from '@/server/logger';
 
-import { getHashToken } from '../../users/helper/user.helper';
 import {
   AUTH_ROLES,
   SESSION_TOKEN_COOKIE_KEY,

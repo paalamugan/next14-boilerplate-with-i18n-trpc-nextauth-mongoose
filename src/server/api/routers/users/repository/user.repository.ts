@@ -16,7 +16,7 @@ import { redis } from '@/server/database/redis';
 import { Logger } from '@/server/logger/logger';
 
 import { AUTH_ROLES } from '../../auth/constants';
-import { getRootAdminUser, isRootAdminUser } from '../../auth/helpers/auth.helper';
+import { getRootAdminUser, isRootAdminUser } from '../../auth/helper/auth.helper';
 import { type IUserData, type IUserSchema, UserModel } from '../model/user.model';
 
 class UserRepository {
