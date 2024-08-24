@@ -57,14 +57,10 @@ export const createColors = (enabled: boolean = isColorSupported) => ({
   bgOrange: enabled ? formatter('\u001b[48;5;208m', '\x1b[49m') : String,
 });
 
-const argv: string[] = process.argv ?? [];
+const argv: string[] = [];
 const { env } = process;
 isColorSupported =
   !('NO_COLOR' in env || argv.includes('--no-color')) &&
-  ('FORCE_COLOR' in env ||
-    argv.includes('--color') ||
-    process.platform === 'win32' ||
-    env.TERM !== 'dumb' ||
-    'CI' in env);
+  ('FORCE_COLOR' in env || argv.includes('--color') || env.TERM !== 'dumb' || 'CI' in env);
 
 export const logColors: ReturnType<typeof createColors> = createColors(isColorSupported);
