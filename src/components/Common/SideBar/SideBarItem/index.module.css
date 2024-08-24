@@ -6,7 +6,7 @@
   }
 
   .label {
-    @apply font-regular w-full text-sm;
+    @apply w-full text-sm font-normal;
   }
 
   .icon {
