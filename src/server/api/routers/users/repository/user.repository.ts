@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { DateTime } from 'luxon';
+import { addDays } from 'date-fns';
 import { z } from 'zod';
 
 import { generateRandomToken } from '@/server/api/helpers/common';
@@ -183,7 +183,7 @@ class UserRepository {
 
     const token = generateRandomToken();
     user.resetPasswordToken = token;
-    user.resetPasswordExpires = DateTime.now().plus({ hours: 24 }).toJSDate();
+    user.resetPasswordExpires = addDays(new Date(), 1);
 
     try {
       return await user.save();

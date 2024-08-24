@@ -1,6 +1,4 @@
 /* eslint-disable no-console */
-import { DateTime } from 'luxon';
-
 import type { ILogger } from '@/types/logger';
 
 import { logColors } from './colors';
@@ -23,9 +21,7 @@ export class Logger implements ILogger {
       type === 'error'
     ) {
       const prefix = colorFn(
-        `[${type.toUpperCase()} - ${DateTime.now().toLocaleString(
-          DateTime.DATETIME_FULL
-        )} - ${logColors.yellow(context)}]:`
+        `[${type.toUpperCase()} - ${new Date()} - ${logColors.yellow(context)}]:`
       );
       console.log(prefix, ...messages);
     }
