@@ -26,7 +26,6 @@ export const ForgotPasswordForm: FC = () => {
     resolver: zodResolver(forgotPasswordValidationSchema),
     defaultValues: {
       email: '',
-      password: '',
     },
   });
   const toast = useToast();
