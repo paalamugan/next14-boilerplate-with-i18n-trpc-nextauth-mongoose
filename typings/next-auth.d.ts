@@ -1,5 +1,5 @@
 import 'next-auth';
-import { JWT } from 'next-auth/jwt';
+import 'next-auth/jwt';
 
 /**
  * Module augmentation for `next-auth` types.

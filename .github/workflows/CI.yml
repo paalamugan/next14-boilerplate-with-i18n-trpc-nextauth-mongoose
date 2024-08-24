@@ -110,8 +110,6 @@ jobs:
 
       - name: Build Next.js
         run: pnpm build
-        env: 
-          REDIS_URL: ${{ env.REDIS_URL }}
 
   test:
     needs: cache-and-install
@@ -172,6 +170,13 @@ jobs:
       #       echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> $GITHUB_ENV
       #     fi
 
+      - name: Build Next.js for E2E tests
+        run: pnpm build
+
+      - if: github.event_name == 'pull_request'
+        name: Validate all commits from PR
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
       - name: Type checking
         run: pnpm type-check
 
@@ -180,13 +185,6 @@ jobs:
 
       - name: Run unit tests
         run: pnpm test
-
-      - name: Build Next.js for E2E tests
-        run: pnpm build
-
-      - if: github.event_name == 'pull_request'
-        name: Validate all commits from PR
-        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
 
       # - name: Upload coverage reports to Codecov
       #   uses: codecov/codecov-action@v3
