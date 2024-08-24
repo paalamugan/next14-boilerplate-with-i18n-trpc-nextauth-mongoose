@@ -185,8 +185,6 @@ jobs:
 
       - name: Run unit tests
         run: pnpm test
-        env: 
-          SKIP_ENV_VALIDATION: true
 
       # - name: Upload coverage reports to Codecov
       #   uses: codecov/codecov-action@v3
