@@ -8,9 +8,12 @@ import About from './page';
 describe('About page', () => {
   describe('Render method', () => {
     it('should have a text starting with `Welcome to our About page`', async () => {
+      const jsx = await About({
+        params: { locale: 'en' },
+      });
       render(
         <NextIntlClientProvider locale="en" messages={messages}>
-          <About params={{ locale: 'en' }} />
+          {jsx}
         </NextIntlClientProvider>
       );
 

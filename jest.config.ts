@@ -17,8 +17,9 @@ const config: Config = {
     // Handle module aliases (this will be automatically configured for you soon)
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@/public/(.*)$': '<rootDir>/public/$1',
-    'next/router': '<rootDir>/src/components/__mocks__/next-router.js',
-    'next-intl': '<rootDir>/src/components/__mocks__/next-intl.js',
+    'next/router': '<rootDir>/src/__mocks__/next-router.js',
+    'next-intl/server': '<rootDir>/src/__mocks__/next-intl/server.js',
+    'next-intl': '<rootDir>/src/__mocks__/next-intl/index.js',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   clearMocks: true,
