@@ -66,7 +66,7 @@ Built-in feature from Next.js:
 Run the following command on your local environment:
 
 ```shell
-git clone --depth=1 https://github.com/paalamugan/next14-boilerplate-with-i18n-next-auth-mongoose my-project-name
+git clone --depth=1 https://github.com/paalamugan/next14-boilerplate-with-i18n-trpc-nextauth-mongoose my-project-name
 cd my-project-name
 ```
 
