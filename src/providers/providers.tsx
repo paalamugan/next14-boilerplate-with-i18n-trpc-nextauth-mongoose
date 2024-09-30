@@ -7,12 +7,13 @@ import { ThemeProvider } from './ThemeProvider';
 
 export const Providers: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <TRPCReactProvider>
-      <LocaleProvider>
+    <LocaleProvider>
+      <TRPCReactProvider>
         <ThemeProvider attribute="class" enableSystem={false}>
           {children}
         </ThemeProvider>
-      </LocaleProvider>
-    </TRPCReactProvider>
+      </TRPCReactProvider>
+    </LocaleProvider>
+
   );
 };

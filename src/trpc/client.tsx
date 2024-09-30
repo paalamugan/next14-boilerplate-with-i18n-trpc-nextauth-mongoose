@@ -11,6 +11,7 @@ import { isTRPCClientErrorWithCode } from '@/lib/utils/is-trpc-client-error-with
 import { type AppRouter } from '@/server/api/root';
 
 import { getTRPCBaseUrl, transformer } from './shared';
+import { usePathname, useRouter } from '@/lib/navigation';
 
 export const api = createTRPCReact<AppRouter>();
 
@@ -19,6 +20,9 @@ type Props = {
 };
 
 export const TRPCReactProvider: React.FC<Props> = props => {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const queryClient = useMemo(
     () =>
       new QueryClient({
@@ -26,6 +30,7 @@ export const TRPCReactProvider: React.FC<Props> = props => {
           queries: {
             retry(failureCount, error) {
               if (isTRPCClientErrorWithCode(error) && error.data.code === 'UNAUTHORIZED') {
+                router.push(`/signin?redirectTo=${pathname}`);
                 return false;
               }
               return failureCount < 2;
@@ -33,7 +38,7 @@ export const TRPCReactProvider: React.FC<Props> = props => {
           },
         },
       }),
-    []
+    [pathname, router]
   );
 
   const trpcClient = useMemo(

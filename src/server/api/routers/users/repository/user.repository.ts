@@ -32,9 +32,14 @@ class UserRepository {
       userKey,
       JSON.stringify(user),
       'EX',
-      60 * 60 * 24 * 7 // 7 days in seconds
+      60 * 60 * 24 * 1 // 1 days in seconds
     );
   };
+
+  private clearCachedUserInfo = async (userId: ServerSession['user']['id']): Promise<void> => {
+    const userKey = this.getUserInfoKey(userId);
+    await redis.del(userKey);
+  }
 
   private getCachedUserInfo = async (
     userId: ServerSession['user']['id']
@@ -134,6 +139,7 @@ class UserRepository {
       const user = await UserModel.authenticate(email, password);
       user.set('lastLogin', new Date());
       const savedUser = await user.save();
+      await this.clearCachedUserInfo(user.id);
       return savedUser;
     } catch (error) {
       this.logger.error('Failed to authenticate user', error);
